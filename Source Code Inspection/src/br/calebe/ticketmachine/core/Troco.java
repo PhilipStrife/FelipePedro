@@ -13,35 +13,71 @@ class Troco {
     public Troco(int valor) {
         papeisMoeda = new PapelMoeda[6];
         int count = 0;
-        while (valor % 100 != 0) {
-            count++;
+        int i = 5;
+        if (valor >= 100) {
+            papeisMoeda[i] = new PapelMoeda(100, valor / 100);
+            valor = valor % 100;
+            i--;
         }
-        papeisMoeda[5] = new PapelMoeda(100, count);
-        count = 0;
-        while (valor % 50 != 0) {
-            count++;
+        if (valor >= 50) {
+            papeisMoeda[i] = new PapelMoeda(50, valor / 50);
+            valor = valor % 50;
+            i--;
         }
-        papeisMoeda[4] = new PapelMoeda(50, count);
-        count = 0;
-        while (valor % 20 != 0) {
-            count++;
+        if (valor >= 20) {
+            papeisMoeda[i] = new PapelMoeda(20, valor / 20);
+            valor = valor % 20;
+            i--;
         }
-        papeisMoeda[3] = new PapelMoeda(20, count);
-        count = 0;
-        while (valor % 10 != 0) {
-            count++;
+        if (valor >= 10) {
+            papeisMoeda[i] = new PapelMoeda(10, valor / 10);
+            valor = valor % 10;
+            i--;
         }
-        papeisMoeda[2] = new PapelMoeda(10, count);
-        count = 0;
-        while (valor % 5 != 0) {
-            count++;
+        if (valor >= 5) {
+            papeisMoeda[i] = new PapelMoeda(5, valor / 5);
+            valor = valor % 5;
+            i--;
         }
-        papeisMoeda[1] = new PapelMoeda(5, count);
-        count = 0;
-        while (valor % 2 != 0) {
-            count++;
+
+        if (valor >= 2) {
+            papeisMoeda[i] = new PapelMoeda(2, valor / 2);
+            valor = valor % 2;
+            i--;
         }
-        papeisMoeda[1] = new PapelMoeda(2, count);
+
+        //        
+        //        while (valor > 100) {
+        //            count++;
+        //            valor -= 100;
+        //        }
+        //        papeisMoeda[i] = new PapelMoeda(100, count);
+        //        count = 0;
+        //        while (valor % 50 != 0) {
+        //            count++;
+        //        }
+        //        papeisMoeda[4] = new PapelMoeda(50, count);
+        //        count = 0;
+        //        while (valor % 20 != 0) {
+        //            count++;
+        //        }
+        //        papeisMoeda[3] = new PapelMoeda(20, count);
+        //        count = 0;
+        //        while (valor % 10 != 0) {
+        //            count++;
+        //        }
+        //        papeisMoeda[2] = new PapelMoeda(10, count);
+        //        count = 0;
+        //        while (valor % 5 != 0) {
+        //            count++;
+        //        }
+        //        papeisMoeda[1] = new PapelMoeda(5, count);
+        //        count = 0;
+        //        while (valor % 2 != 0) {
+        //            count++;
+        //        }
+        //        papeisMoeda[1] = new PapelMoeda(2, count);
+        //    }
     }
 
     public Iterator<PapelMoeda> getIterator() {
@@ -58,7 +94,7 @@ class Troco {
 
         @Override
         public boolean hasNext() {
-            for (int i = 6; i >= 0; i++) {
+            for (int i = 5; i >= 0; i--) {
                 if (troco.papeisMoeda[i] != null) {
                     return true;
                 }
@@ -69,10 +105,11 @@ class Troco {
         @Override
         public PapelMoeda next() {
             PapelMoeda ret = null;
-            for (int i = 6; i >= 0 && ret != null; i++) {
+            for (int i = 5; i >= 0; i--) {
                 if (troco.papeisMoeda[i] != null) {
                     ret = troco.papeisMoeda[i];
                     troco.papeisMoeda[i] = null;
+                    return ret;
                 }
             }
             return ret;

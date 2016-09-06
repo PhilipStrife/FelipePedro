@@ -21,4 +21,8 @@ public class PapelMoeda {
     public int getQuantidade() {
         return quantidade;
     }
+    @Override
+    public String toString(){
+        return (quantidade + ": R$:" + valor);
+    }
 }
